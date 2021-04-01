@@ -59,6 +59,17 @@ class ProfileAdmin(admin.ModelAdmin, ExporCsvMixin):
         'user__is_staff'
     )
 
+    """
+        (
+            'NOMBRE SECTION', {
+                'fields': (
+                    ('field que se quiere')
+                )
+            }
+        )
+    
+    """
+
     fieldsets = (
         ('Profile', {
             'fields': (
