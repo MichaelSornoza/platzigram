@@ -7,7 +7,7 @@
 {% block container %}
 
     {% if error %}
-        <p style="color: red;">{{ error }}</p>
+        <p class='alert alert-danger'>{{ error }}</p>
     {% endif %}
 
     <form method="POST" action="{% url "login" %}">
@@ -16,16 +16,19 @@
             <input 
                 class="form-control mb-2" 
                 type="text" placeholder="Username" 
-                name="username" 
+                name="username"
+                required
             />
             <input 
                 class="form-control" 
                 type="password" placeholder="Password" 
-                name="password" 
+                name="password"
+                required 
             />
         </div>
         <button class="btn btn-primary btn-block" type="submit">Sign in</button>
 
     </form>
+    <a href="{% url "signup" %}" class="primary">Signup</a>
 
 {% endblock %}
