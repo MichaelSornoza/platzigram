@@ -48,6 +48,21 @@ def signup_view(request):
         return render(request, 'users/signup.html')
 
 
+@login_required
+def updated_profile_view(request):
+
+    profile = request.user.profile
+
+    return render(
+        request=request,
+        template_name='users/update_profile.html',
+        context={
+            'profile': profile,
+            'user': request.user
+        }
+    )
+
+
 def login_view(request):
 
     if request.method == 'POST':
@@ -66,7 +81,7 @@ def login_view(request):
         return render(request, 'users/login.html')
 
 
-@ login_required
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('login')

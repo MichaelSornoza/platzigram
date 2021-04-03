@@ -28,7 +28,7 @@ from users import views as user_views
 urlpatterns = [
     path('hello-world/', local_views.hello_world, name="hello_world"),
     path('hi/', local_views.sorted_numbers, name='sorted'),
-    path('hi/<str:name>/<int:age>', local_views.hi, name='hi'),
+    path('hi/<str:name>/<int:age>/', local_views.hi, name='hi'),
     path('admin/', admin.site.urls),
 
     path('posts/', post_views.list_posts, name='feed'),
@@ -36,5 +36,6 @@ urlpatterns = [
     path('users/signup', user_views.signup_view, name='signup'),
     path('users/login', user_views.login_view, name='login'),
     path('users/logout', user_views.logout_view, name='logout'),
+    path('users/me/profile', user_views.updated_profile_view, name='update_profile')
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
