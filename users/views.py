@@ -10,6 +10,8 @@ from .models import Profile
 
 # Create your views here.
 
+from users.forms import ProfileForm
+
 
 def signup_view(request):
 
@@ -53,12 +55,30 @@ def updated_profile_view(request):
 
     profile = request.user.profile
 
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            data = form.cleaned_data
+
+            profile.website = data['website']
+            profile.biography = data['biography']
+            profile.phone_number = data['phone_number']
+            profile.picture = data['picture']
+
+            profile.save()
+
+            return redirect('update_profile')
+    else:
+        form = ProfileForm()
+
     return render(
         request=request,
         template_name='users/update_profile.html',
         context={
             'profile': profile,
-            'user': request.user
+            'user': request.user,
+            'form': form
         }
     )
 
