@@ -10,44 +10,25 @@ from .models import Profile
 
 # Create your views here.
 
-from users.forms import ProfileForm
+from users.forms import ProfileForm, SignupForm
 
 
 def signup_view(request):
 
     if request.method == 'POST':
+        form = SignupForm(request.POST)
 
-        username = request.POST['username']
-        password = request.POST['password']
-        password_confirmation = request.POST['password_confirmation']
-        first_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        email = request.POST['email']
-
-        if password != password_confirmation:
-            return render(request, 'users/signup.html', {'error': 'Password not found'})
-
-        try:
-            user = User.objects.create_user(
-                username=username,
-                password=password,
-                first_name=first_name,
-                last_name=last_name,
-                email=email
-            )
-
-            profile = Profile(user=user)
-
-            user.save()
-            profile.save()
-
+        if form.is_valid():
+            form.save()
             return redirect('login')
-
-        except IntegrityError:
-            return render(request, 'users/signup.html', {'error': 'Username is already in user'})
-
     else:
-        return render(request, 'users/signup.html')
+        form = SignupForm()
+
+    return render(
+        request=request,
+        template_name='users/signup.html',
+        context={'form': form}
+    )
 
 
 @login_required
