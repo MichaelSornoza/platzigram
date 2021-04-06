@@ -87,8 +87,12 @@ WSGI_APPLICATION = 'platzigram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'platzigram',
+        'USER': 'postgres',
+        'PASSWORD': 'Mosp12345',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
@@ -147,3 +151,6 @@ STATICFILES_FINDERS = [
 ]
 
 LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'posts:feed'
+
+LOGOUT_REDIRECT_URL = LOGIN_URL
